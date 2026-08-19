@@ -1,0 +1,7 @@
+{
+  "name": "galeria-fotos-ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
