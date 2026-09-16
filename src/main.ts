@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
 import { createPinia } from 'pinia';
+import { loadThemePreference } from './services/theme';
 
 import { IonicVue } from '@ionic/vue';
 
@@ -29,8 +30,8 @@ import '@ionic/vue/css/display.css';
  */
 
 /* @import '@ionic/vue/css/palettes/dark.always.css'; */
-/* @import '@ionic/vue/css/palettes/dark.class.css'; */
-import '@ionic/vue/css/palettes/dark.system.css';
+/* Tema escuro controlado pela classe .ion-palette-dark (ver src/services/theme.ts) */
+import '@ionic/vue/css/palettes/dark.class.css';
 
 /* Theme variables */
 import './theme/variables.css';
@@ -40,6 +41,7 @@ const app = createApp(App)
   .use(createPinia())
   .use(router);
 
-router.isReady().then(() => {
+// Aplica o tema salvo no Preferences antes de exibir o app.
+Promise.all([router.isReady(), loadThemePreference().catch(() => false)]).then(() => {
   app.mount('#app');
 });
